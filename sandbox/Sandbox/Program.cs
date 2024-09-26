@@ -14,7 +14,7 @@ class Program
         }
         else if (args.Length > 0 && args[0] == "guess_number")
         {
-            Guess.RunGuessNumber(); // Only runs guess_number.cs
+            Guess.RunGuessNumber(); // Only runs guess_number
         }
         else
         {
