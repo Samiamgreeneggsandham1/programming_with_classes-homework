@@ -14,10 +14,11 @@ class Program
         {
             Console.WriteLine("Please select one of the following choices:");
             Console.WriteLine("1: Write");
-            Console.WriteLine("2: Display");
-            Console.WriteLine("3: Load");
-            Console.WriteLine("4: Save");
-            Console.WriteLine("5: Quit");
+            Console.WriteLine("2: Add a new prompt");
+            Console.WriteLine("3: Display");
+            Console.WriteLine("4: Load");
+            Console.WriteLine("5: Save");
+            Console.WriteLine("6: Quit");
             Console.Write("What would you like to do? ");
 
             string choice = Console.ReadLine();
@@ -33,24 +34,31 @@ class Program
                     break;
 
                 case "2":
-                    journalPrompts.DisplayEntries();
+                    Console.WriteLine("Please enter your new journal prompt:");
+                    string newPrompt = Console.ReadLine();
+                    journalPrompts.AddPrompt(newPrompt);
+                    Console.WriteLine("New prompt added successfully.");
                     break;
 
                 case "3":
+                    journalPrompts.DisplayEntries();
+                    break;
+
+                case "4":
                     Console.WriteLine("What is the file name?\n");
                     string loadFileName = Console.ReadLine();
                     Load loader = new Load();
                     loader.LoadEntriesFromFile(loadFileName, journalPrompts);
                     break;
 
-                case "4":
+                case "5":
                     Console.WriteLine("What is the file name?\n");
                     string saveFileName = Console.ReadLine();
                     Save saver = new Save();
                     saver.SaveEntriesToFile(saveFileName, journalPrompts);
                     break;
 
-                case "5":
+                case "6":
                     exitProgram = true;
                     break;
 

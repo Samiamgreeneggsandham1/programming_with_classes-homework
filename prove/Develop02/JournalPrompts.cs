@@ -59,4 +59,9 @@ public class JournalPrompts
         JournalEntry entry = new JournalEntry(date, prompt, response);
         _journalEntries.Add(entry);
     }
+
+    public void AddPrompt(string newPrompt)
+    {
+        _journalPrompts.Add(newPrompt);
+    }
 }
