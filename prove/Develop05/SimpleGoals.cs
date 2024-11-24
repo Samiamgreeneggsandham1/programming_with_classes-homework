@@ -4,6 +4,16 @@ public class SimpleGoals : Goals
 {
     private bool _isComplete;
 
+    public void SetIsComplete(bool isComplete)
+    {
+        _isComplete = isComplete;
+    }
+
+    public bool GetIsComplete()
+    {
+        return _isComplete;
+    }
+
     public SimpleGoals(string goalName = "", string goalDescription = "", bool isComplete = false, int points = 0)
         : base(goalName, goalDescription, points, "simple")
     {
@@ -12,11 +22,11 @@ public class SimpleGoals : Goals
 
     public override int RecordEvent()
     {
-        if (!_isComplete)
+        if (!GetIsComplete())
         {
-            _isComplete = true;
-            Console.WriteLine($"You completed the goal {GoalName} and earned {Points} points!");
-            return Points;
+            SetIsComplete(true);
+            Console.WriteLine($"You completed the goal {GetGoalName()} and earned {GetPoints()} points!");
+            return GetPoints();
         }
 
         Console.WriteLine("This goal is already complete!");
@@ -25,7 +35,7 @@ public class SimpleGoals : Goals
 
     public override string ToCsvString()
     {
-        return $"{GoalName},{GoalDescription},{Points},{_isComplete},{nameof(SimpleGoals)}";
+        return $"{GetGoalName()},{GetGoalDescription()},{GetPoints()},{GetIsComplete()},{nameof(SimpleGoals)}";
     }
 
     public static SimpleGoals FromCsvString(string csvLine)
@@ -42,12 +52,12 @@ public class SimpleGoals : Goals
 
     public override bool isComplete()
     {
-        return _isComplete;
+        return GetIsComplete();
     }
 
     public override void DisplayGoal()
     {
-        string status = _isComplete ? "Completed" : "Incomplete";
-        Console.WriteLine($"Simple Goal: {GoalName} - {GoalDescription}\n    Status: {status}\n    Points: {Points}\n");
+        string status = GetIsComplete() ? "Completed" : "Incomplete";
+        Console.WriteLine($"Simple Goal: {GetGoalName()} - {GetGoalDescription()}\n    Status: {status}\n    Points: {GetPoints()}\n");
     }
 }

@@ -3,10 +3,50 @@ using System.Collections.Generic;
 
 public abstract class Goals
 {
-    public string GoalName { get; set; }
-    public string GoalDescription { get; set; }
-    public int Points { get; set; }
-    public string GoalType { get; set; }
+    private string _goalName;
+    private string _goalDescription;
+    private int _points;
+    private string _goalType;
+
+    public void SetGoalName(string goalName)
+    {
+        _goalName = goalName;
+    }
+
+    public string GetGoalName()
+    {
+        return _goalName;
+    }
+
+    public void SetGoalDescription(string goalDescription)
+    {
+        _goalDescription = goalDescription;
+    }
+
+    public string GetGoalDescription()
+    {
+        return _goalDescription;
+    }
+
+    public void SetPoints(int points)
+    {
+        _points = points;
+    }
+
+    public int GetPoints()
+    {
+        return _points;
+    }
+
+    public void SetGoalType(string goalType)
+    {
+        _goalType = goalType;
+    }
+
+    public string GetGoalType()
+    {
+        return _goalType;
+    }
 
     public abstract int RecordEvent();
     public abstract string ToCsvString();
@@ -15,52 +55,52 @@ public abstract class Goals
 
     public Goals(string goalName = "", string goalDescription = "", int points = 0, string goalType = "")
     {
-        GoalName = goalName;
-        GoalDescription = goalDescription;
-        Points = points;
-        GoalType = goalType;
+        _goalName = goalName;
+        _goalDescription = goalDescription;
+        _points = points;
+        _goalType = goalType;
     }
 
     public void SetGoal()
     {
         Console.Write("Enter the name of your goal: ");
-        GoalName = Console.ReadLine();
+        SetGoalName(Console.ReadLine());
 
         Console.Write("Enter a short description of your goal: ");
-        GoalDescription = Console.ReadLine();
+        SetGoalDescription(Console.ReadLine());
 
         Console.Write("Enter the type of your goal (Simple, Eternal, Checklist): ");
-        GoalType = Console.ReadLine().ToLower();
+        SetGoalType(Console.ReadLine().ToLower());
 
         // Declare the points variable inside the if-else blocks to avoid scope issues
         int points;
         
-        if (GoalType == "simple")
+        if (GetGoalType() == "simple")
         {
             Console.Write("Enter the points this goal is worth upon completion: ");
             while (!int.TryParse(Console.ReadLine(), out points) || points <= 0)
             {
                 Console.WriteLine("Invalid input. Please enter a positive number for points.");
             }
-            Points = points;
+            SetPoints(points);
         }
-        else if (GoalType == "eternal")
+        else if (GetGoalType() == "eternal")
         {
             Console.Write("Enter the points this goal is worth per event: ");
             while (!int.TryParse(Console.ReadLine(), out points) || points <= 0)
             {
                 Console.WriteLine("Invalid input. Please enter a positive number for points.");
             }
-            Points = points;
+            SetPoints(points);
         }
-        else if (GoalType == "checklist")
+        else if (GetGoalType() == "checklist")
         {
             Console.Write("Enter the points this goal is worth per event: ");
             while (!int.TryParse(Console.ReadLine(), out points) || points <= 0)
             {
                 Console.WriteLine("Invalid input. Please enter a positive number for points.");
             }
-            Points = points;
+            SetPoints(points);
 
             // Additional logic for checklist goals
             int bonusPoints;

@@ -6,6 +6,36 @@ public class ChecklistGoals : Goals
     private int _targetCount;
     private int _currentCount;
 
+    public void SetBonusPoints(int bonusPoints)
+    {
+        _bonusPoints = bonusPoints;
+    }
+
+    public int GetBonusPoints()
+    {
+        return _bonusPoints;
+    }
+
+    public void SetTargetCount(int targetCount)
+    {
+        _targetCount = targetCount;
+    }
+
+    public int GetTargetCount()
+    {
+        return _targetCount;
+    }
+
+    public void SetCurrentCount(int currentCount)
+    {
+        _currentCount = currentCount;
+    }
+
+    public int GetCurrentCount()
+    {
+        return _currentCount;
+    }
+
     public ChecklistGoals(string goalName = "", string goalDescription = "", int pointsPerEvent = 0, int bonusPoints = 0, int targetCount = 0, int currentCount = 0)
         : base(goalName, goalDescription, pointsPerEvent, "checklist")
     {
@@ -16,18 +46,18 @@ public class ChecklistGoals : Goals
 
     public override int RecordEvent()
     {
-        if (_currentCount < _targetCount)
+        if (GetCurrentCount() < GetTargetCount())
         {
-            _currentCount++;
-            Console.WriteLine($"Progress made on '{GoalName}': {_currentCount}/{_targetCount} events completed.");
+            SetCurrentCount(GetCurrentCount() + 1);
+            Console.WriteLine($"Progress made on '{GetGoalName()}': {GetCurrentCount()}/{GetTargetCount()} events completed.");
             
-            if (_currentCount >= _targetCount)
+            if (GetCurrentCount() >= GetTargetCount())
             {
-                Console.WriteLine($"Congratulations! You completed the goal '{GoalName}' and earned {_bonusPoints} bonus points!");
-                return _bonusPoints;
+                Console.WriteLine($"Congratulations! You completed the goal '{GetGoalName()}' and earned {GetBonusPoints()} bonus points!");
+                return GetBonusPoints();
             }
 
-            return Points;
+            return GetPoints();
         }
 
         Console.WriteLine("This goal is already complete!");
@@ -36,7 +66,7 @@ public class ChecklistGoals : Goals
 
     public override string ToCsvString()
     {
-        return $"{GoalName},{GoalDescription},{Points},{_bonusPoints},{_targetCount},{_currentCount},{nameof(ChecklistGoals)}";
+        return $"{GetGoalName()},{GetGoalDescription()},{GetPoints()},{GetBonusPoints()},{GetTargetCount()},{GetCurrentCount()},{nameof(ChecklistGoals)}";
     }
 
     public static ChecklistGoals FromCsvString(string csvLine)
@@ -57,12 +87,12 @@ public class ChecklistGoals : Goals
 
     public override bool isComplete()
     {
-        return _currentCount >= _targetCount;
+        return GetCurrentCount() >= GetTargetCount();
     }
 
     public override void DisplayGoal()
     {
-        string status = isComplete() ? "Completed" : $"In Progress ({_currentCount}/{_targetCount})";
-        Console.WriteLine($"Checklist Goal: {GoalName} - {GoalDescription}\n    Status: {status}\n    Points per event: {Points}\n    Bonus Completion Points:{_bonusPoints}\n");
+        string status = isComplete() ? "Completed" : $"In Progress ({GetCurrentCount()}/{GetTargetCount()})";
+        Console.WriteLine($"Checklist Goal: {GetGoalName()} - {GetGoalDescription()}\n    Status: {status}\n    Points per event: {GetPoints()}\n    Bonus Completion Points: {GetBonusPoints()}\n");
     }
 }

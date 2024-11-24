@@ -9,13 +9,13 @@ public class EternalGoals : Goals
 
     public override int RecordEvent()
     {
-        Console.WriteLine($"You earned {Points} points!"); // Use Points instead of _pointsPerEvent
-        return Points; // Return Points from the base class
+        Console.WriteLine($"You earned {GetPoints()} points!"); // Use GetPoints() instead of _pointsPerEvent
+        return GetPoints(); // Return GetPoints() from the base class
     }
 
     public override string ToCsvString()
     {
-        return $"{GoalName},{GoalDescription},{Points},{nameof(EternalGoals)}"; // Use Points
+        return $"{GetGoalName()},{GetGoalDescription()},{GetPoints()},{nameof(EternalGoals)}"; // Use GetPoints()
     }
 
     public static EternalGoals FromCsvString(string csvLine)
@@ -37,6 +37,6 @@ public class EternalGoals : Goals
 
     public override void DisplayGoal()
     {
-        Console.WriteLine($"Eternal Goal: {GoalName} - {GoalDescription}\n    Points per event: {Points}\n"); // Use Points
+        Console.WriteLine($"Eternal Goal: {GetGoalName()} - {GetGoalDescription()}\n    Points per event: {GetPoints()}\n"); // Use GetPoints()
     }
 }

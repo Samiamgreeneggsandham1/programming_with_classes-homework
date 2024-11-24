@@ -67,9 +67,9 @@ class Program
                     Console.WriteLine("Select a goal to record an event for:");
                     for (int i = 0; i < goals.Count; i++)
                     {
-                        Console.WriteLine($"{i + 1}. {goals[i].GoalName} ({goals[i].GoalDescription})");
+                        Console.WriteLine($"{i + 1}. {goals[i].GetGoalName()} ({goals[i].GetGoalDescription()})");
                     }
-                
+
                     Console.Write("Enter the number of the goal to record an event: ");
                     string selectedGoalIndex = Console.ReadLine();
 
