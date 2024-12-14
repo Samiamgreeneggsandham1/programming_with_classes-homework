@@ -3,11 +3,32 @@ using System.Collections.Generic;
 
 public class Items
 {
-    public string _itemName;
-    public decimal _monetaryValue;
-    public int _defensiveValue;
-    public int _offensiveValue;
-    public string _specialTraits;
+    private string _itemName;
+    private decimal _monetaryValue;
+    private int _defensiveValue;
+    private int _offensiveValue;
+    private string _specialTraits;
+    private int _quantity;
+
+    public Items(string itemName, decimal monetaryValue, int defensiveValue, int offensiveValue, string specialTraits, int quantity = 0)
+    {
+        _itemName = itemName;
+        _monetaryValue = Math.Max(monetaryValue, 0); // Ensure non-negative value
+        _defensiveValue = Math.Max(defensiveValue, 0); // Ensure non-negative value
+        _offensiveValue = Math.Max(offensiveValue, 0); // Ensure non-negative value
+        _specialTraits = specialTraits;
+        _quantity = quantity;
+    }
+
+    public int GetQuantity()
+    {
+        return _quantity;
+    }
+
+    public void SetQuantity(int quantity)
+    {
+        _quantity = Math.Max(quantity, 0);
+    }
 
     public void SetName(string name)
     {
@@ -21,7 +42,7 @@ public class Items
 
     public void SetMonetaryValue(decimal monetaryValue)
     {
-        _monetaryValue = monetaryValue;
+        _monetaryValue = Math.Max(monetaryValue, 0);
     }
 
     public decimal GetMonetaryValue()
@@ -31,7 +52,7 @@ public class Items
 
     public void SetDefensiveValue(int defensiveValue)
     {
-        _defensiveValue = defensiveValue;
+        _defensiveValue = Math.Max(defensiveValue, 0);
     }
 
     public int GetDefensiveValue()
@@ -41,7 +62,7 @@ public class Items
 
     public void SetOffensiveValue(int offensiveValue)
     {
-        _offensiveValue = offensiveValue;
+        _offensiveValue = Math.Max(offensiveValue, 0);
     }
 
     public int GetOffensiveValue()
@@ -57,14 +78,5 @@ public class Items
     public string GetSpecialTraits()
     {
         return _specialTraits;
-    }
-
-    public Items(string itemName, decimal monetaryValue, int defensiveValue, int offensiveValue, string specialTraits)
-    {
-        _itemName = itemName;
-        _monetaryValue = monetaryValue;
-        _defensiveValue = defensiveValue;
-        _offensiveValue = offensiveValue;
-        _specialTraits = specialTraits;
     }
 }

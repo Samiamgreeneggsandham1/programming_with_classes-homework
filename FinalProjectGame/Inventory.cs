@@ -2,23 +2,11 @@ using System;
 
 public class Inventory : Items
 {
-    private int _maxQuantity;
     private int _currentQuantity;
 
-    public Inventory(string name, decimal monetaryValue, int defensiveValue, int offensiveValue, string specialTraits, int maxQuantity) : base(name, monetaryValue, defensiveValue, offensiveValue, specialTraits)
+    public Inventory(string name, decimal monetaryValue, int defensiveValue, int offensiveValue, string specialTraits, int initialQuantity = 0) : base(name, monetaryValue, defensiveValue, offensiveValue, specialTraits)
     {
-        _maxQuantity = maxQuantity;
-        _currentQuantity = 0;
-    }
-
-    public void SetMaxQuantity(int maxQuantity)
-    {
-        _maxQuantity = maxQuantity;
-    }
-
-    public int GetMaxQuantity()
-    {
-        return _maxQuantity;
+        _currentQuantity = initialQuantity;
     }
 
     public void SetCurrentQuantity(int quantity)
@@ -33,12 +21,9 @@ public class Inventory : Items
 
     public bool AddItem(int quantity)
     {
-        if (_currentQuantity + quantity <= _maxQuantity)
-        {
-            _currentQuantity += quantity;
-            return true;
-        }
-        return false;
+        _currentQuantity += quantity;
+        Console.WriteLine($"Added {quantity} items. New quantity: {_currentQuantity}.");
+        return true;
     }
 
     public bool RemoveItem(int quantity)
@@ -46,8 +31,35 @@ public class Inventory : Items
         if (_currentQuantity >= quantity)
         {
             _currentQuantity -= quantity;
+            Console.WriteLine($"Removed {quantity} items. New quantity: {_currentQuantity}.");
             return true;
         }
-        return false;
+        else
+        {
+            Console.WriteLine("Not enough items to remove.");
+            return false;
+        }
+    }
+
+    public int GetHealingAmount()
+    {
+        return GetDefensiveValue();
+    }
+
+    public int GetAttackBonus()
+    {
+        return GetOffensiveValue();
+    }
+
+    public void RemoveHealthPotions(int quantity)
+    {
+        if (quantity <= GetCurrentQuantity())
+        {
+            SetCurrentQuantity(GetCurrentQuantity() - quantity);
+        }
+        else
+        {
+            Console.WriteLine("Not enough health potions to use.");
+        }
     }
 }
